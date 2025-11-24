@@ -1,0 +1,32 @@
+@WebApplication1_HostAddress = http://localhost:5028
+
+Get http://localhost:5028/games
+
+###
+Get http://localhost:5028/games/1
+
+###
+POST http://localhost:5028/games
+Content-Type: application/json
+
+{
+    "name": "New Game",
+    "genre": "Adventure",
+    "price": 49.99,
+    "releaseDate": "2024-07-01"
+}
+
+
+### 
+PUT http://localhost:5028/games/1
+Content-Type: application/json
+
+{
+    "name": "Updated Game",
+    "genre": "Action",
+    "price": 59.99,
+    "releaseDate": "2024-08-01"
+}
+
+### 
+DELETE http://localhost:5028/games/1

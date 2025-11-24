@@ -1,0 +1,40 @@
+## Ignore Visual Studio temporary files, build results, and
+## User-specific files
+bin/
+obj/
+**/bin/
+**/obj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build outputs
+*.dll
+*.exe
+*.app
+*.log
+
+## NuGet
+*.nupkg
+packages/
+
+## Rider
+.idea/
+
+## Publish
+publish/
+
+## OS files
+Thumbs.db
+.DS_Store
+
+## Local DB and secrets
+*.db
+secrets.json
+appsettings.*.Local.json
+
+## JetBrains Rider
+/.idea/
