@@ -1,4 +1,6 @@
+using WebApplication1.Data;
 using WebApplication1.Dtos;
+using WebApplication1.Entities;
 
 namespace WebApplication1.EndPoints;
 
@@ -28,19 +30,30 @@ public static class GamesEndPoints
             return game is not null ? Results.Ok(game) : Results.NotFound();
         }).WithName(GetGameEndpointName);
 
-        group.MapPost("/", (CreateGameDto createGameDto) =>
+        group.MapPost("/", (CreateGameDto createGameDto, GameStoreContext dbContext) =>
         {
-            var newId = games.Max(g => g.Id) + 1;
-            var newGame = new GameDto(
-                newId,
-                createGameDto.Name,
-                createGameDto.Genre,
-                createGameDto.Price,
-                createGameDto.ReleaseDate
+            Game game = new() 
+            {
+                Name = createGameDto.Name,
+                Genre = dbContext.Genres.Find(createGameDto.GenreId),
+                GenreId = createGameDto.GenreId,
+                Price = createGameDto.Price,
+                ReleaseDate = createGameDto.ReleaseDate
+            };
+
+            dbContext.Games.Add(game);
+            dbContext.SaveChanges();
+
+            GameDto gameDto = new(
+                game.Id,
+                game.Name,
+                //game.Genre?.Name ?? "Unknown",
+                game.Genre!.Name,
+                game.Price,
+                game.ReleaseDate
             );
-            games.Add(newGame);
-            //return Results.Created($"/games/{newId}", newGame);   //Created, CreatedAtRoute의 용도는?
-            return Results.CreatedAtRoute(GetGameEndpointName, new { id = newId }, newGame);
+
+            return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, gameDto);
         });
 
         group.MapPut("/{id}", (int id, UpdateGameDto updateGameDto) =>
