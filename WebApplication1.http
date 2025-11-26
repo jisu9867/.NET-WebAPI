@@ -10,9 +10,9 @@ POST http://localhost:5028/games
 Content-Type: application/json
 
 {
-    "name": "New Game",
-    "genreId": "5",
-    "price": 49.99,
+    "name": "Final Fantasy XVI",
+    "genreId": "2",
+    "price": 99.99,
     "releaseDate": "2024-07-01"
 }
 
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 {
     "name": "Updated Game",
-    "genre": "Action",
+    "genreId": 5,
     "price": 59.99,
     "releaseDate": "2024-08-01"
 }
